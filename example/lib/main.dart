@@ -50,30 +50,34 @@ class _MyAppState extends State<MyApp> {
             appBar: new AppBar(
               title: const Text('Plugin example app'),
             ),
-            body: Column(
-              children: <Widget>[
-                Text('the main sim card is ${_simData.carrierName}'),
-                Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    children: _simData.cards.map((SimCard card) {
-                      return Container(
-                        child: Center(
-                          child: Column(
-                            children: <Widget>[
-                              Text(card.carrierName),
-                              Text(card.displayName),
-                              Text(card.countryCode),
-                              Text(card.deviceId),
-                              Text('data roaming is ${card.isDataRoaming}')
-                            ],
-                          ),
+            body: _simData == null
+                ? Text('Loading')
+                : Column(
+                    children: <Widget>[
+                      Text(
+                          'the main sim card is ${_simData.carrierName == null ? "na" : _simData.carrierName}'),
+                      Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Column(
+                          children: _simData.cards.map((SimCard card) {
+                            return Container(
+                              child: Center(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(card.carrierName),
+                                    Text(card.displayName),
+                                    Text(card.countryCode),
+                                    Text(card.deviceId),
+                                    Text(
+                                        'data roaming is ${card.isDataRoaming}')
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                )
-              ],
-            )));
+                      )
+                    ],
+                  )));
   }
 }

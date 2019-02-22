@@ -17,7 +17,7 @@ flutter:
     androidPackage: com.cloudsoft.simservice
     pluginClass: SimServicePlugin
 environment:
-    sdk: ">=1.19.0 <2.0.0"
+    sdk: ">=2.1.0 <3.0.0"
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
