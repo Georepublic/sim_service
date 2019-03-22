@@ -25,7 +25,7 @@ class SimService {
     }
     SimData finalSimData = new SimData(
         data['carrierName'],
-        data['countyCode'],
+        data['countryCode'],
         data['mcc'],
         data['mnc'],
         data['callState'],
@@ -51,7 +51,7 @@ class SimService {
 
 class SimData {
   final String carrierName;
-  final String countyCode;
+  final String countryCode;
   final String mcc;
   final String mnc;
   final int callState;
@@ -73,7 +73,7 @@ class SimData {
   final List<SimCard> cards;
   SimData(
       this.carrierName,
-      this.countyCode,
+      this.countryCode,
       this.mcc,
       this.mnc,
       this.callState,
