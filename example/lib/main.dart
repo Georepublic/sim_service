@@ -64,12 +64,11 @@ class _MyAppState extends State<MyApp> {
                               child: Center(
                                 child: Column(
                                   children: <Widget>[
-                                    Text(card.carrierName),
-                                    Text(card.displayName),
-                                    Text(card.countryCode),
-                                    Text(card.deviceId),
-                                    Text(
-                                        'data roaming is ${card.isDataRoaming}')
+                                    Text('carrierName: ${card.carrierName}'),
+                                    Text('displayName: ${card.displayName}'),
+                                    Text('countryCode: ${card.countryCode}'),
+                                    Text('deviceId: ${card.deviceId}'),
+                                    Text('isDataRoaming: ${card.isDataRoaming}')
                                   ],
                                 ),
                               ),

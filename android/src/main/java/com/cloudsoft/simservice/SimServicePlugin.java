@@ -4,22 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.app.Activity;
-import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.telephony.CellIdentityCdma;
-import android.telephony.CellIdentityGsm;
-import android.telephony.CellIdentityLte;
-import android.telephony.CellIdentityWcdma;
-import android.telephony.CellInfo;
-import android.telephony.CellInfoCdma;
-import android.telephony.CellInfoGsm;
-import android.telephony.CellInfoLte;
-import android.telephony.CellInfoWcdma;
-import android.telephony.CellLocation;
-import android.telephony.cdma.CdmaCellLocation;
-import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.content.Intent;
 import android.net.Uri;
@@ -66,9 +53,9 @@ public class SimServicePlugin  implements MethodCallHandler {
         String permission = "READ_PHONE_STATE";
         String simData = null;
 
-        Log.i("*** Debug ***","Android Version: " + android.os.Build.VERSION.SDK_INT );
+        Log.d("*** Debug ***","Android Version: " + android.os.Build.VERSION.SDK_INT );
 
-        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             permission = getManifestPermission(permission);
 
             if (checkPermission(permission)) {
@@ -107,7 +94,9 @@ public class SimServicePlugin  implements MethodCallHandler {
                     phoneCount = manager.getPhoneCount();
                 }
 
-                if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+
+
 
                     SubscriptionManager subscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     activeSubscriptionInfoCount = subscriptionManager.getActiveSubscriptionInfoCount();
@@ -159,47 +148,7 @@ public class SimServicePlugin  implements MethodCallHandler {
                     }
                 }
                 else {
-                    final List<CellInfo> allCellInfo = manager.getAllCellInfo();
-                    sims = new JSONArray();
-
-                    for (CellInfo cellInfo : allCellInfo) {
-                        int mcc = 0;
-                        int mnc = 0;
-
-                        if (cellInfo instanceof CellInfoGsm) {
-                            CellIdentityGsm cellIdentity = ((CellInfoGsm) cellInfo).getCellIdentity();
-                            mcc = cellIdentity.getMcc();
-                            mnc = cellIdentity.getMnc();
-                        } else if (cellInfo instanceof CellInfoWcdma) {
-                            CellIdentityWcdma cellIdentity = ((CellInfoWcdma) cellInfo).getCellIdentity();
-                            mcc = cellIdentity.getMcc();
-                            mnc = cellIdentity.getMnc();
-                        } else if (cellInfo instanceof CellInfoLte) {
-                            CellIdentityLte cellIdentity = ((CellInfoLte) cellInfo).getCellIdentity();
-                            mcc = cellIdentity.getMcc();
-                            mnc = cellIdentity.getMnc();
-                        } else if (cellInfo instanceof CellInfoCdma) {
-                            CellIdentityCdma cellIdentity = ((CellInfoCdma) cellInfo).getCellIdentity();
-                        }
-
-                        JSONObject simData = new JSONObject();
-
-                        simData.put("carrierName", "na");
-                        simData.put("displayName", "na");
-                        simData.put("countryCode", "na");
-                        simData.put("mcc", mcc);
-                        simData.put("mnc", mnc);
-                        simData.put("isNetworkRoaming", false);
-                        simData.put("isDataRoaming", false);
-                        simData.put("simSlotIndex", 0);
-                        simData.put("phoneNumber", "na");
-                        simData.put("deviceId", "na");
-                        simData.put("simSerialNumber", "na");
-                        simData.put("subscriptionId", 0);
-
-                        sims.put(simData);
-
-                    }
+                    // TODO:
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -225,26 +174,15 @@ public class SimServicePlugin  implements MethodCallHandler {
 
             boolean isNetworkRoaming = manager.isNetworkRoaming();
 
-/*
             try {
-                GsmCellLocation gc = (GsmCellLocation) manager.getCellLocation();
-                int cid = gc.getCid();
-                int psc = gc.getPsc();
-                int lac = gc.getLac();
 
-                Log.i("CellInfo","cid: "+cid+" psc: "+psc+" lac: "+lac);
-            }
-            catch (Exception ee) {
-                Log.e("Location Error",ee.toString());
-            }
-*/
 
-            try {
                 phoneNumber = manager.getLine1Number();
                 deviceId = manager.getDeviceId();
                 deviceSoftwareVersion = manager.getDeviceSoftwareVersion();
                 simSerialNumber = manager.getSimSerialNumber();
                 subscriberId = manager.getSubscriberId();
+
 
                 String mcc = "";
                 String mnc = "";
