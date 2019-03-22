@@ -54,8 +54,24 @@ class _MyAppState extends State<MyApp> {
                 ? Text('Loading')
                 : Column(
                     children: <Widget>[
-                      Text(
-                          'the main sim card is ${_simData.carrierName == null ? "na" : _simData.carrierName}'),
+                      Container(
+                        child: Center(
+                          child: Column(
+                            children: <Widget>[
+                              Text('carrierName: ${_simData.carrierName}'),
+                              Text('countryCode: ${_simData.countryCode}'),
+                              Text('networkType: ${_simData.networkType}'),
+                              Text('phoneType: ${_simData.phoneType}'),
+                              Text('deviceId: ${_simData.deviceId}'),
+                              Text('simState: ${_simData.simState}'),
+                              Text('phoneCount: ${_simData.phoneCount}'),
+                              Text('phoneNumber: ${_simData.phoneNumber}'),
+                              Text('simSerialNumber: ${_simData.simSerialNumber}'),
+                              Text('subscriberId: ${_simData.subscriberId}'),
+                            ]
+                          )
+                        )
+                      ),
                       Padding(
                         padding: EdgeInsets.all(20.0),
                         child: Column(
@@ -67,8 +83,15 @@ class _MyAppState extends State<MyApp> {
                                     Text('carrierName: ${card.carrierName}'),
                                     Text('displayName: ${card.displayName}'),
                                     Text('countryCode: ${card.countryCode}'),
+                                    Text('mcc: ${card.mcc}'),
+                                    Text('mnc: ${card.mnc}'),
+                                    Text('isNetworkRoaming: ${card.isNetworkRoaming}'),
+                                    Text('isDataRoaming: ${card.isDataRoaming}'),
+                                    Text('simSlotIndex: ${card.simSlotIndex}'),
+                                    //Text('phoneNumber: ${card.phoneNumber}'),
                                     Text('deviceId: ${card.deviceId}'),
-                                    Text('isDataRoaming: ${card.isDataRoaming}')
+                                    Text('simSerialNumber: ${card.simSerialNumber}'),
+                                    Text('subscriptionId: ${card.subscriptionId}')
                                   ],
                                 ),
                               ),
