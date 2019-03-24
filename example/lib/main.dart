@@ -81,6 +81,7 @@ class _MyAppState extends State<MyApp> {
                                 child: Center(
                                   child: Column(
                                     children: <Widget>[
+                                      Text('--------------------------------'),
                                       Text('carrierName: ${card.carrierName}'),
                                       Text('displayName: ${card.displayName}'),
                                       Text('countryCode: ${card.countryCode}'),
