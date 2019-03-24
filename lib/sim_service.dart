@@ -9,19 +9,21 @@ class SimService {
     print(simData);
     var data = json.decode(simData);
     List<SimCard> simCards = <SimCard>[];
-    for (var card in data['cards']) {
-      simCards.add(SimCard(
-          card['carrierName'],
-          card['displayName'],
-          card['countryCode'],
-          card['mcc'],
-          card['mnc'],
-          card['isNetworkRoaming'],
-          card['isDataRoaming'],
-          card['simSlotIndex'],
-          card['deviceId'],
-          card['simSerialNumber'],
-          card['subscriptionId']));
+    if (data['cards'] != null) {
+      for (var card in data['cards']) {
+        simCards.add(SimCard(
+            card['carrierName'],
+            card['displayName'],
+            card['countryCode'],
+            card['mcc'],
+            card['mnc'],
+            card['isNetworkRoaming'],
+            card['isDataRoaming'],
+            card['simSlotIndex'],
+            card['deviceId'],
+            card['simSerialNumber'],
+            card['subscriptionId']));
+      }
     }
     SimData finalSimData = new SimData(
         data['carrierName'],

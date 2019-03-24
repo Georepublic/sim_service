@@ -192,32 +192,34 @@ public class SimServicePlugin  implements MethodCallHandler {
                     mnc = simOperator.substring(3);
                 }
 
-                // Assume single SIM on < API 22
-                if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-                    sims = new JSONArray();
+                if (simSerialNumber != null) {
+                    // Assume single SIM on < API 22
+                    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+                        sims = new JSONArray();
 
-                    JSONObject simData = new JSONObject();
+                        JSONObject simData = new JSONObject();
 
-                    simData.put("carrierName", carrierName);
-                    simData.put("displayName", null);
-                    simData.put("countryCode", countryCode);
-                    simData.put("mcc", (!mcc.isEmpty()) ? Integer.parseInt(mcc) : null);
-                    simData.put("mnc", (!mnc.isEmpty()) ? Integer.parseInt(mnc) : null);
-                    simData.put("isNetworkRoaming", isNetworkRoaming);
-                    simData.put("isDataRoaming", null);
-                    simData.put("simSlotIndex", null);
-                    simData.put("phoneNumber", phoneNumber);
-                    if (deviceId != null) {
-                        simData.put("deviceId", deviceId);
+                        simData.put("carrierName", carrierName);
+                        simData.put("displayName", null);
+                        simData.put("countryCode", countryCode);
+                        simData.put("mcc", (!mcc.isEmpty()) ? Integer.parseInt(mcc) : null);
+                        simData.put("mnc", (!mnc.isEmpty()) ? Integer.parseInt(mnc) : null);
+                        simData.put("isNetworkRoaming", isNetworkRoaming);
+                        simData.put("isDataRoaming", null);
+                        simData.put("simSlotIndex", null);
+                        simData.put("phoneNumber", phoneNumber);
+                        if (deviceId != null) {
+                            simData.put("deviceId", deviceId);
+                        }
+                        simData.put("simSerialNumber", simSerialNumber);
+                        simData.put("subscriptionId", null);
+
+                        sims.put(simData);
                     }
-                    simData.put("simSerialNumber", simSerialNumber);
-                    simData.put("subscriptionId", null);
-
-                    sims.put(simData);
-                }
-                if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
-                    if (sims != null) {
-                        phoneCount = sims.length();
+                    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
+                        if (sims != null) {
+                            phoneCount = sims.length();
+                        }
                     }
                 }
 
