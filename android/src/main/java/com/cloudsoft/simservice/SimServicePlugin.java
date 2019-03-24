@@ -149,6 +149,7 @@ public class SimServicePlugin  implements MethodCallHandler {
 
                     }
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -250,6 +251,7 @@ public class SimServicePlugin  implements MethodCallHandler {
                 jsonObject.put("deviceSoftwareVersion", deviceSoftwareVersion);
                 jsonObject.put("simSerialNumber", simSerialNumber);
                 jsonObject.put("subscriberId", subscriberId);
+
 
                 if (sims != null && sims.length() != 0) {
                     jsonObject.put("cards", sims);
